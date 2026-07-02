@@ -1,17 +1,38 @@
-def dfs(grafo, vertice_inicial):
-    visitados = set()
-    pilha = [vertice_inicial]
+def dfs_completa(grafo, vertice_inicial):
+    tempos_descoberta = {}
+    tempos_finalizacao = {}
+    arestas_retorno = []
     ordem_visitacao = []
     
-    while pilha:
-        vertice_atual = pilha.pop()
+    estados = {v: 0 for v in grafo.obter_todos_vertices()}
+    pais = {v: None for v in grafo.obter_todos_vertices()}
+    
+    tempo = [0] 
+
+    def dfs_visitar(u):
+        tempo[0] += 1
+        tempos_descoberta[u] = tempo[0]
+        estados[u] = 1 
+        ordem_visitacao.append(u)
         
-        if vertice_atual not in visitados:
-            visitados.add(vertice_atual)
-            ordem_visitacao.append(vertice_atual)
-            
-            for vizinho in grafo.obter_vizinhos(vertice_atual):
-                if vizinho not in visitados:
-                    pilha.append(vizinho)
+        for vizinho in grafo.obter_vizinhos(u):
+            if estados[vizinho] == 0:
+                pais[vizinho] = u
+                dfs_visitar(vizinho)  
+                
+            elif estados[vizinho] == 1 and vizinho != pais[u]:
+                if (vizinho, u) not in arestas_retorno:
+                    arestas_retorno.append((u, vizinho))
                     
-    return ordem_visitacao
+        estados[u] = 2  
+        tempo[0] += 1
+        tempos_finalizacao[u] = tempo[0]
+
+    dfs_visitar(vertice_inicial)
+    
+    return {
+        "ordem": ordem_visitacao,
+        "descoberta": tempos_descoberta,
+        "finalizacao": tempos_finalizacao,
+        "arestas_retorno": arestas_retorno
+    }
