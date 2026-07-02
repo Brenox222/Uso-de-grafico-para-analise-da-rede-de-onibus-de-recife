@@ -1,3 +1,7 @@
+def dfs(grafo, vertice_inicial):
+    resultado = dfs_completa(grafo, vertice_inicial)
+    return resultado["ordem"]
+    
 def dfs_completa(grafo, vertice_inicial):
     tempos_descoberta = {}
     tempos_finalizacao = {}
@@ -30,9 +34,14 @@ def dfs_completa(grafo, vertice_inicial):
 
     dfs_visitar(vertice_inicial)
     
-    return {
+   return {
         "ordem": ordem_visitacao,
         "descoberta": tempos_descoberta,
         "finalizacao": tempos_finalizacao,
+        "arestas_retorno": arestas_retorno,
+        "arestas_arvore": arestas_arvore,
+        "mapa_pais": pais
+    }
+        
         "arestas_retorno": arestas_retorno
     }
