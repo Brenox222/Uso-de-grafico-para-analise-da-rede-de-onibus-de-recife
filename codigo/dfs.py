@@ -42,6 +42,4 @@ def dfs_completa(grafo, vertice_inicial):
         "arestas_arvore": arestas_arvore,
         "mapa_pais": pais
     }
-        
-        "arestas_retorno": arestas_retorno
-    }
+
