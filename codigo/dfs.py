@@ -7,6 +7,7 @@ def dfs_completa(grafo, vertice_inicial):
     tempos_finalizacao = {}
     arestas_retorno = []
     ordem_visitacao = []
+    arestas_arvore = []
     
     estados = {v: 0 for v in grafo.obter_todos_vertices()}
     pais = {v: None for v in grafo.obter_todos_vertices()}
@@ -22,6 +23,7 @@ def dfs_completa(grafo, vertice_inicial):
         for vizinho in grafo.obter_vizinhos(u):
             if estados[vizinho] == 0:
                 pais[vizinho] = u
+                arestas_arvore.append((u, vizinho)) 
                 dfs_visitar(vizinho)  
                 
             elif estados[vizinho] == 1 and vizinho != pais[u]:
