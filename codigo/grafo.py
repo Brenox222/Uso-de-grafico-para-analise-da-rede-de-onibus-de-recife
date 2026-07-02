@@ -44,3 +44,30 @@ class GrafoCoautoria:
         """retorna a quantidade total de arestas"""
         soma_graus = sum(len(vizinhos) for vizinhos in self.adjacencia.values())
         return soma_graus // 2
+    
+    ####adicionado
+
+
+    def calcular_grau_medio(self):
+        """Calcula o grau médio da rede (conexões por pesquisador)"""
+        V = self.total_vertices()
+        if V == 0:
+            return 0
+        # A fórmula é: (2 * total de arestas) / total de vértices
+        return (2 * self.total_arestas()) / V
+
+    def obter_no_maior_grau(self):
+        """Identifica o pesquisador com mais coautorias (o Hub da rede)"""
+        maior_grau = -1
+        professor_hub = None
+        
+        # todos os pesquisadores e suas listas de vizinhos
+        for vertice, vizinhos in self.adjacencia.items():
+            grau = len(vizinhos)
+            if grau > maior_grau:
+                maior_grau = grau
+                professor_hub = vertice
+                
+        return professor_hub, maior_grau
+
+
